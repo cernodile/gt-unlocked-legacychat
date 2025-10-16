@@ -1,5 +1,5 @@
-$x64_path = "build/x64-release/src/dinput8.dll"
-$x86_path = "build/x86-release/src/dinput8.dll"
+$x64_path = "build/release-x64/src/dinput8.dll"
+$x86_path = "build/release-x86/src/dinput8.dll"
 
 $temp_dir = ".temp"
 $legacy_dir = "$temp_dir/legacy"
