@@ -1,26 +1,30 @@
 #include "fps.h"
+
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
 SetFPSLimit_t SetFPSLimit_real = NULL;
 
-void SetFPSLimitOptimal(void* rcx)
+void set_optimal_fps_limit(void)
 {
-    DEVMODE dm = {0};
-    dm.dmSize = sizeof(DEVMODE);
-    /* The Growtopia window will always be tied to the primary display, therefore I'm pretty sure
-     * there's no need to iterate through monitors & display devices. Calling EnumDisplaySettingsA
-     * and passing NULL as the device name should return the settings of the display tied to the
-     * calling thread, which in this case should be the primary display. If unable to retrieve the
-     * display settings, default to a safe 60 FPS.
+    DEVMODE dm = {.dmSize = sizeof(DEVMODE)};
+
+    /*
+     * The game window is always tied to the primary display, so iteration through display devices is unnecessary.
+     * See https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-enumdisplaysettingsa
      */
     if (EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &dm))
+    {
         SetFPSLimit_real(NULL, (float)dm.dmDisplayFrequency);
+    }
     else
+    {
+        /* Fall back to 60 FPS */
         SetFPSLimit_real(NULL, 60.0f);
+    }
 }
 
-void __fastcall SetFPSLimit_hook(void* rcx, float fps)
+void __fastcall SetFPSLimit_hook(void *arg, float fps)
 {
-    /* The rcx param doesn't actually seem to matter (?), but can't hurt to pass it along. */
-    SetFPSLimitOptimal(rcx);
+    set_optimal_fps_limit();
 }
