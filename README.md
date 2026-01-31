@@ -19,6 +19,6 @@ the built-in FPS counter.
 
 ## Warning
 
-**Certain in-game mechanics are tied to the framerate, and things like high-precision parkour may feel slightly
-different. Other than that, I haven't come across any serious issue (e.g., getting auto-banned), but remember that
+**Certain in-game mechanics are tied to the framerate**, and things like high-precision parkour may feel slightly
+different. Other than that, I haven't come across any serious issues (e.g., getting auto-banned), but remember that
 **using any 3rd party software that modifies the client is against the rules** and might get your account suspended.
