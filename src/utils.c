@@ -94,6 +94,22 @@ void *PatchMemory(void *dest, const void *src, size_t size)
     return (void *)dest;
 }
 
+int NopMemory(void* address, size_t count)
+{
+    DWORD oldProtection = 0;
+    if (!VirtualProtect(address, count, PAGE_EXECUTE_READWRITE, &oldProtection))
+    {
+        return 0;
+    }
+    memset(address, 0x90, count);
+
+    if (!VirtualProtect(address, count, oldProtection, &oldProtection))
+    {
+        return 0;
+    }
+    return 1;
+}
+
 void *FindMemory(const OptionalByte *pattern, size_t count)
 {
     if (pattern == NULL || count == 0)

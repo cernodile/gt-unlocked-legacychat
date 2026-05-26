@@ -54,6 +54,27 @@ int HookSetFPSLimit(void)
     return 1;
 }
 
+#ifdef _WIN64
+int NopKillLogCall(void)
+{
+    OptionalByte patternBytes[PATTERN_BUFFER_MAX_COUNT] = {0};
+    int32_t patternLength = ParsePattern(KillLogCallPattern, patternBytes, PATTERN_BUFFER_MAX_COUNT);
+
+    if (patternLength <= 0)
+    {
+        return 0;
+    }
+    uint8_t *addr = FindMemory(patternBytes, (size_t)patternLength);
+
+    if (!addr)
+    {
+        return 0;
+    }
+
+    return NopMemory(addr + 3, 5);
+}
+#endif
+
 void Setup(void)
 {
     SendMessageA(GetClientWindow(), WM_NULL, 0, 0);
@@ -75,7 +96,13 @@ void Setup(void)
         ShowErrorMessageBox("Failed to hook SetFPSLimit. Please report this issue on GitHub.");
         return;
     }
-
+#ifdef _WIN64
+    if (!NopKillLogCall())
+    {
+        ShowErrorMessageBox("Failed to remove the KillLog call. Please report this issue on GitHub.");
+        return;
+    }
+#endif
     SetOptimalFPSLimit();
     SetWindowTextA(GetClientWindow(), "Growtopia (FPS Unlocked)");
 }

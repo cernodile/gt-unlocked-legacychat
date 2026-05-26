@@ -14,6 +14,7 @@ HMODULE GetClientExeModule();
 int32_t ParsePattern(const char *pattern, OptionalByte *outBytes, size_t maxCount);
 
 void *PatchMemory(void *address, const void *data, size_t size);
+int NopMemory(void* address, size_t count);
 void *FindMemory(const uint16_t *pattern, size_t count);
 
 void ShowErrorMessageBox(const char *message);
