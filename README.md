@@ -8,6 +8,8 @@ Unlike the upstream, gt-unlocked-legacychat is only provided for the Windows Nat
 ![Demo2](demo2.png)
 *(Image doctored to hide some identifiable information)*
 
+**V5.49+ note:** Credit where it is due, Ubisoft has addressed many pain points with the new chat systems with this client release - chat position & size are now remembered and message order can be toggled. As a side effect of these fixes, old chat no longer affects camera - this will affect your user experience using this mod. As the scope of this mod is to not do any deep integration with the game itself, these are issues I cannot fix out of infeasibility from maintaining a modern set of game structures and will likely contribute to potentially archiving the repository in next few game client releases. Enjoy this while it lasts if you can't stand the new chat system at all.
+
 # gt-unlocked
 Mod for Growtopia that changes the client's FPS limit to match the monitors refresh rate, compatible with both
 standalone and Steam/Ubiconnect versions.
